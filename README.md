@@ -37,8 +37,8 @@ duck, goose, blob, cat, dragon, octopus, owl, penguin, turtle, snail, ghost, axo
 Requires Python 3.10+
 
 ```bash
-git clone https://github.com/kilo-loco/mcp-buddy.git
-cd mcp-buddy
+git clone https://github.com/kilo-loco/homie-mcp.git
+cd homie-mcp
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
@@ -60,22 +60,22 @@ Add to `~/Library/Application Support/Claude/claude_desktop_config.json`:
 {
   "mcpServers": {
     "homie": {
-      "command": "/path/to/mcp-buddy/.venv/bin/python3",
-      "args": ["/path/to/mcp-buddy/server.py"]
+      "command": "/path/to/homie-mcp/.venv/bin/python3",
+      "args": ["/path/to/homie-mcp/server.py"]
     }
   }
 }
 ```
 
-Replace `/path/to/mcp-buddy` with the actual path where you cloned the repo.
+Replace `/path/to/homie-mcp` with the actual path where you cloned the repo.
 
 ### Claude Code
 
 ```bash
-claude mcp add homie /path/to/mcp-buddy/.venv/bin/python3 /path/to/mcp-buddy/server.py
+claude mcp add homie /path/to/homie-mcp/.venv/bin/python3 /path/to/homie-mcp/server.py
 ```
 
-Replace `/path/to/mcp-buddy` with the actual path where you cloned the repo.
+Replace `/path/to/homie-mcp` with the actual path where you cloned the repo.
 
 ## Tools
 
@@ -132,21 +132,6 @@ Companions are deterministically generated from a seed string via SHA-256. Same 
 | Legendary ★★★★★ | 1% | 50 | Yes |
 
 Each homie gets one peak stat and one dump stat, so no two feel the same.
-
-## How This Was Built
-
-I'm [Kilo Loco](https://kiloloco.com), an iOS tech lead who uses Claude Code every day. I built Homie MCP in a single evening using Claude Code as my coding partner, with my AI assistant Kabu (running on [OpenClaw](https://github.com/openclaw/openclaw)) handling the research, test writing, and QA.
-
-the process:
-1. Kabu read the reference material and wrote the initial Python MCP server
-2. I reviewed the implementation and directed the architecture
-3. Kabu wrote 57 tests covering determinism, generation, sprites, reactions, and edge cases
-4. a separate AI agent followed the README cold (without seeing the source code) to verify setup actually works
-5. we iterated on the README until it passed the cold test with an A
-
-total time from idea to ship-ready: about 2 hours. that's the kind of workflow Claude Code enables.
-
-if you want to see how I build things like this live, I stream daily at 5:30 AM PST on [YouTube](https://youtube.com/@Kilo_Loco).
 
 ## License
 

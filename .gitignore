@@ -30,3 +30,4 @@ claude-code
 briefs/
 memory/
 projects/
+__pycache__/
