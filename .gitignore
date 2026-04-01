@@ -26,3 +26,7 @@ Thumbs.db
 
 # State (user-specific)
 # homie state lives in ~/.homie-mcp/ not in repo
+claude-code
+briefs/
+memory/
+projects/

@@ -50,7 +50,7 @@ pip install -r requirements.txt
 python3 server.py
 ```
 
-You should see the server start with no errors. Press `Ctrl+C` to stop it.
+It should start and exit without errors. MCP stdio servers don't print output, so no output is normal. If you see a Python traceback, something is wrong.
 
 ### Claude Desktop
 
@@ -132,6 +132,21 @@ Companions are deterministically generated from a seed string via SHA-256. Same 
 | Legendary ★★★★★ | 1% | 50 | Yes |
 
 Each homie gets one peak stat and one dump stat, so no two feel the same.
+
+## How This Was Built
+
+I'm [Kilo Loco](https://kiloloco.com), an iOS tech lead who uses Claude Code every day. I built Homie MCP in a single evening using Claude Code as my coding partner, with my AI assistant Kabu (running on [OpenClaw](https://github.com/openclaw/openclaw)) handling the research, test writing, and QA.
+
+the process:
+1. Kabu read the reference material and wrote the initial Python MCP server
+2. I reviewed the implementation and directed the architecture
+3. Kabu wrote 57 tests covering determinism, generation, sprites, reactions, and edge cases
+4. a separate AI agent followed the README cold (without seeing the source code) to verify setup actually works
+5. we iterated on the README until it passed the cold test with an A
+
+total time from idea to ship-ready: about 2 hours. that's the kind of workflow Claude Code enables.
+
+if you want to see how I build things like this live, I stream daily at 5:30 AM PST on [YouTube](https://youtube.com/@Kilo_Loco).
 
 ## License
 
