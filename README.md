@@ -1,117 +1,121 @@
-# 🐣 MCP Buddy
+# 🐣 Homie MCP
 
-A tamagotchi-style virtual companion pet for your coding sessions. Inspired by virtual pets and the joy of having a little buddy watch you code.
+A tamagotchi-style virtual pet for your coding sessions. Hatch a unique homie, pet it, and watch it react to your work.
 
-Hatch a unique companion, pet it, and watch it react to your work. Each companion is deterministically generated from a seed, so your buddy is uniquely yours.
+Each homie is deterministically generated from a seed string, so yours is always the same across machines.
 
-## Features
-
-- **18 species** including duck, dragon, ghost, axolotl, capybara, and more
-- **5 rarity tiers**: Common ★, Uncommon ★★, Rare ★★★, Epic ★★★★, Legendary ★★★★★
-- **Shiny variants** (1% chance) with sparkle effects
-- **RPG stat system**: DEBUGGING, PATIENCE, CHAOS, WISDOM, SNARK
-- **Personality-driven reactions** based on species and stats
-- **ASCII art sprites** with hat accessories
-- **Persistent state** saved between sessions
-
-## Species Gallery
+## What it looks like
 
 ```
-  Duck           Cat            Dragon         Ghost          Robot
-   _~           ^   ^         \v/ \v/         .---.         [====]
- (·  )>        (· w ·)        (· ~ ·)       | ·  ·|       | ·  · |
- /|__|          )   (         <~~~~~>       |  o  |       |_====_|
-  ^ ^          ~~ _ ~~         vvvvv        ~^~^~^~        d|  |b
+   ♛
+  \v/ \v/
+  (✦ ~ ✦)
+  <~~~~~>
+   vvvvv
 
-  Axolotl       Capybara       Mushroom       Chonk         Octopus
-\~(    )~/     .______.      .~o~~O~~.       _/\ /\_       .~~~~~~.
-\~(·  ·)~/    (·      ·)    (________)     / ·    · \    ( ·    · )
-  (~~~~)      (  oooo  )      |·  ·|      (   ....   )   (______)
-  d/  \b       `------'       |____|       \_______/     ~/~/~/~/~
+╔════════════════════════════════════╗
+║              Sparky                ║
+║              DRAGON                ║
+║         ★★★★ Epic                  ║
+╠════════════════════════════════════╣
+║ DEBUGGING  ████████░░░░░░░  55    ║
+║ PATIENCE   ██████░░░░░░░░░  40    ║
+║ CHAOS      █████████████░░  88    ║
+║ WISDOM     ███████░░░░░░░░  47    ║
+║ SNARK      ██████████░░░░░  68    ║
+╚════════════════════════════════════╝
 ```
 
-## Installation
+## 18 species
+
+duck, goose, blob, cat, dragon, octopus, owl, penguin, turtle, snail, ghost, axolotl, capybara, cactus, robot, rabbit, mushroom, chonk
+
+5 rarity tiers (Common through Legendary), shiny variants (1% chance), hat accessories for uncommon+, and 5 RPG stats: DEBUGGING, PATIENCE, CHAOS, WISDOM, SNARK.
+
+## Setup
 
 ```bash
-# Clone the repo
 git clone https://github.com/kilo-loco/mcp-buddy.git
 cd mcp-buddy
-
-# Install dependencies
 pip install -r requirements.txt
 ```
 
-## Usage with Claude Desktop
+### Claude Desktop
 
-Add to your Claude Desktop config (`~/Library/Application Support/Claude/claude_desktop_config.json`):
+Add to `~/Library/Application Support/Claude/claude_desktop_config.json`:
 
 ```json
 {
   "mcpServers": {
-    "buddy": {
-      "command": "python",
-      "args": ["/path/to/mcp-buddy/server.py"]
+    "homie": {
+      "command": "python3",
+      "args": ["/absolute/path/to/mcp-buddy/server.py"]
     }
   }
 }
 ```
 
-## Usage with Claude Code
-
-Add to your Claude Code MCP config:
+### Claude Code
 
 ```bash
-claude mcp add buddy python /path/to/mcp-buddy/server.py
+claude mcp add homie python3 /absolute/path/to/mcp-buddy/server.py
 ```
 
-## MCP Tools
+## Tools
 
-### `hatch_companion`
-Generate a new companion from a name and optional seed.
-- **name** (required): What to name your companion
-- **seed** (optional): Seed string for deterministic generation (defaults to name)
-- Returns: Species, rarity, stats, ASCII art, personality
+| Tool | What it does |
+|------|-------------|
+| `hatch_homie` | Generate a new homie from a name and optional seed. Returns species, rarity, stats, ASCII sprite, personality. |
+| `get_homie` | Show your current homie's sprite, stats, and personality. |
+| `pet_homie` | Pet your homie. Hearts animation, species-specific reaction, interaction counter. |
+| `homie_react` | Give context about your work ("debugging a memory leak") and your homie reacts in character. |
+| `homie_stats` | Full RPG stat card with visual bars. |
+| `rename_homie` | Change your homie's name. |
 
-### `get_companion`
-Get your current companion's info and ASCII art sprite.
+### Example
 
-### `pet_companion`
-Pet your companion! Returns hearts animation and a cute species-specific reaction. Tracks interaction count.
+> "Hatch me a homie named Sparky"
 
-### `companion_react`
-Give context about what you're working on and your companion reacts in character.
-- **context** (required): What you're doing (e.g., "debugging a memory leak")
-- Reactions are influenced by personality, species, and stat distribution
+```
+🥚 *crack* ... *crack crack* ...
 
-### `companion_stats`
-Show a full RPG-style stat card with visual bars.
+  \v/ \v/
+  (✦ ~ ✦)
+  <~~~~~>
+   vvvvv
 
-### `rename_companion`
-Give your companion a new name.
-- **new_name** (required): The new name
+🎉 Sparky has hatched!
+Species: Dragon
+Rarity: ★★★★ Epic
+Personality: Dramatic flair. Breathes fire at bugs. Hoards good code snippets.
+```
 
-## How It Works
+> "Tell my homie I'm debugging a memory leak"
 
-Companions are deterministically generated from a seed string using SHA-256 hashing. The same seed always produces the same species, rarity, stats, and appearance. Your companion's "soul" (name, hatch date, interaction count) is stored in `~/.mcp-buddy/companion.json`.
+```
+  \v/ \v/
+  (✦ ~ ✦)
+  <~~~~~>
+   vvvvv
 
-### Rarity Distribution
-| Rarity | Chance | Stat Floor | Hat? |
-|--------|--------|------------|------|
+💬 *dragon adjusts tiny glasses* Have you tried reading the error message?
+```
+
+## How it works
+
+Companions are deterministically generated from a seed string via SHA-256. Same seed, same homie, every time. State (name, hatch date, interaction count) is stored in `~/.homie-mcp/homie.json`.
+
+### Rarity distribution
+
+| Rarity | Chance | Stat floor | Hats? |
+|--------|--------|------------|-------|
 | Common ★ | 60% | 5 | No |
 | Uncommon ★★ | 25% | 15 | Yes |
 | Rare ★★★ | 10% | 25 | Yes |
 | Epic ★★★★ | 4% | 35 | Yes |
 | Legendary ★★★★★ | 1% | 50 | Yes |
 
-### Stats
-Each companion has 5 stats (1-100) that influence their personality:
-- **DEBUGGING**: Bug-finding instinct
-- **PATIENCE**: How calmly they handle problems
-- **CHAOS**: Tendency toward creative destruction
-- **WISDOM**: Deep knowledge and insight
-- **SNARK**: Sass levels (may roast your code)
-
-Higher rarity companions have higher stat floors. Each companion has one peak stat and one dump stat, making every buddy unique.
+Each homie gets one peak stat and one dump stat, so no two feel the same.
 
 ## License
 

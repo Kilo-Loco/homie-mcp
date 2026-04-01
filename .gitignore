@@ -25,4 +25,4 @@ env/
 Thumbs.db
 
 # State (user-specific)
-# companion state lives in ~/.mcp-buddy/ not in repo
+# homie state lives in ~/.homie-mcp/ not in repo

@@ -1,4 +1,4 @@
-"""MCP Buddy - A tamagotchi-style virtual companion pet for your coding sessions."""
+"""Homie MCP - A tamagotchi-style virtual companion pet for your coding sessions."""
 
 import hashlib
 import json
@@ -37,12 +37,12 @@ EYES = ["·", "✦", "×", "◉", "@", "°"]
 
 HATS = ["none", "crown", "tophat", "propeller", "halo", "wizard", "beanie", "tinyduck"]
 
-SALT = "buddy-companion-2026-mcp"
+SALT = "homie-companion-2026-mcp"
 
 STAT_FLOOR = {"common": 5, "uncommon": 15, "rare": 25, "epic": 35, "legendary": 50}
 
-STATE_DIR = Path.home() / ".mcp-buddy"
-STATE_FILE = STATE_DIR / "companion.json"
+STATE_DIR = Path.home() / ".homie-mcp"
+STATE_FILE = STATE_DIR / "homie.json"
 
 # ---------------------------------------------------------------------------
 # ASCII Sprites  (original art, 5 lines each, {E} = eye placeholder)
@@ -465,18 +465,18 @@ def _get_reaction(companion: dict[str, Any], context: str) -> str:
 # MCP Server
 # ---------------------------------------------------------------------------
 
-mcp = FastMCP("MCP Buddy")
+mcp = FastMCP("Homie MCP")
 
 
 @mcp.tool()
-def hatch_companion(name: str, seed: str = "") -> str:
-    """Hatch a new companion from a name and optional seed string.
+def hatch_homie(name: str, seed: str = "") -> str:
+    """Hatch a new homie from a name and optional seed string.
 
-    Generates a deterministic companion pet with species, rarity, stats, and ASCII art.
-    The companion is unique to the seed (defaults to the name if no seed given).
+    Generates a deterministic virtual pet with species, rarity, stats, and ASCII art.
+    The homie is unique to the seed (defaults to the name if no seed given).
 
     Args:
-        name: What to name your companion
+        name: What to name your homie
         seed: Optional seed string for deterministic generation (defaults to name)
     """
     seed_str = seed if seed else name
@@ -515,15 +515,15 @@ Welcome to the world, {name}! 🎊"""
 
 
 @mcp.tool()
-def get_companion() -> str:
-    """Get the current companion's info and ASCII art sprite.
+def get_homie() -> str:
+    """Get your current homie's info and ASCII art sprite.
 
-    Shows the current companion pet with its sprite, stats summary, and personality.
-    Returns an error if no companion has been hatched yet.
+    Shows your homie with its sprite, stats summary, and personality.
+    Returns an error if no homie has been hatched yet.
     """
     companion = _get_full_companion()
     if companion is None:
-        return "🥚 No companion hatched yet! Use hatch_companion to get one."
+        return "🥚 No homie hatched yet! Use hatch_homie to get one."
 
     sprite = render_sprite(companion)
     stars = RARITY_STARS[companion["rarity"]]
@@ -539,14 +539,14 @@ Interactions: {companion.get('interactions', 0)}"""
 
 
 @mcp.tool()
-def pet_companion() -> str:
-    """Pet your companion! Returns hearts and a cute reaction.
+def pet_homie() -> str:
+    """Pet your homie! Returns hearts and a cute reaction.
 
     Increases the interaction counter and shows an affectionate response.
     """
     companion = _get_full_companion()
     if companion is None:
-        return "🥚 No companion to pet! Use hatch_companion first."
+        return "🥚 No homie to pet! Use hatch_homie first."
 
     state = _load_state() or {}
     state["interactions"] = state.get("interactions", 0) + 1
@@ -566,10 +566,10 @@ def pet_companion() -> str:
 
 
 @mcp.tool()
-def companion_react(context: str) -> str:
-    """Your companion reacts to what you're working on.
+def homie_react(context: str) -> str:
+    """Your homie reacts to what you're working on.
 
-    Give context about your current task and your companion will react
+    Give context about your current task and your homie will react
     in character based on its personality and stats.
 
     Args:
@@ -577,7 +577,7 @@ def companion_react(context: str) -> str:
     """
     companion = _get_full_companion()
     if companion is None:
-        return "🥚 No companion to react! Use hatch_companion first."
+        return "🥚 No homie to react! Use hatch_homie first."
 
     reaction = _get_reaction(companion, context)
     sprite = render_sprite(companion)
@@ -588,29 +588,29 @@ def companion_react(context: str) -> str:
 
 
 @mcp.tool()
-def companion_stats() -> str:
-    """Show your companion's full RPG-style stat card.
+def homie_stats() -> str:
+    """Show your homie's full RPG-style stat card.
 
     Displays a detailed stat card with bars for each stat,
     rarity info, and species details.
     """
     companion = _get_full_companion()
     if companion is None:
-        return "🥚 No companion yet! Use hatch_companion first."
+        return "🥚 No homie yet! Use hatch_homie first."
 
     return render_stat_card(companion)
 
 
 @mcp.tool()
-def rename_companion(new_name: str) -> str:
-    """Rename your companion.
+def rename_homie(new_name: str) -> str:
+    """Rename your homie.
 
     Args:
-        new_name: The new name for your companion
+        new_name: The new name for your homie
     """
     state = _load_state()
     if state is None:
-        return "🥚 No companion to rename! Use hatch_companion first."
+        return "🥚 No homie to rename! Use hatch_homie first."
 
     old_name = state.get("name", "???")
     state["name"] = new_name
