@@ -34,11 +34,23 @@ duck, goose, blob, cat, dragon, octopus, owl, penguin, turtle, snail, ghost, axo
 
 ## Setup
 
+Requires Python 3.10+
+
 ```bash
 git clone https://github.com/kilo-loco/mcp-buddy.git
 cd mcp-buddy
+python3 -m venv .venv
+source .venv/bin/activate
 pip install -r requirements.txt
 ```
+
+### Verify it works
+
+```bash
+python3 server.py
+```
+
+You should see the server start with no errors. Press `Ctrl+C` to stop it.
 
 ### Claude Desktop
 
@@ -48,18 +60,22 @@ Add to `~/Library/Application Support/Claude/claude_desktop_config.json`:
 {
   "mcpServers": {
     "homie": {
-      "command": "python3",
-      "args": ["/absolute/path/to/mcp-buddy/server.py"]
+      "command": "/path/to/mcp-buddy/.venv/bin/python3",
+      "args": ["/path/to/mcp-buddy/server.py"]
     }
   }
 }
 ```
 
+Replace `/path/to/mcp-buddy` with the actual path where you cloned the repo.
+
 ### Claude Code
 
 ```bash
-claude mcp add homie python3 /absolute/path/to/mcp-buddy/server.py
+claude mcp add homie /path/to/mcp-buddy/.venv/bin/python3 /path/to/mcp-buddy/server.py
 ```
+
+Replace `/path/to/mcp-buddy` with the actual path where you cloned the repo.
 
 ## Tools
 
